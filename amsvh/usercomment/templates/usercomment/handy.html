@@ -1,0 +1,48 @@
+<style>
+    input,textarea{
+    border:solid #49789e 3px;
+    }
+</style>
+{% include 'home/base.html' %}
+{% include 'home/navbar.html' %}
+{% include 'home/auths.html' %}
+
+{% block content %}
+    <div id="" style="overflow-y:scroll; display:flex;
+flex-direction:column-reverse; height:400px; background-color:#d5d8e0">
+        <ul style="padding-top:20px">
+            {% for comment in usercomment_list %}
+                {% for picture in pictures %}
+                    {% if comment.username_id == picture.owner_id %}
+                        <div>
+                            <img style="margin:10 10 10 10; max-width:6%; border-radius:50%; border:solid 5px #49789e  " src="{% url 'usercomment:picture_picture' picture.id %}"
+                            onclick="document.getElementById('overlay').style.display = 'block';">
+                            {{ comment.comment }}
+                        </div>
+                    {% endif%}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <br><br>
+
+    <form  id="message" action="" method="" >
+        {% csrf_token %}
+        <lable for="fn">First name:</lable>
+        <input type="text" id="fn" name="first_name" value="{{ user.first_name }}" readonly ><br><br>
+        <lable for="ln">Last name:</lable>
+        <input type="text" id="ln" name="last_name" value="{{ user.last_name }}" readonly ><br><br>
+        <input type="hidden" id="username_id" name="username_id" value="{{ user.id }}" readonly ><br><br>
+        <lable for="cm">Comment:</lable><br>
+        <textarea rows="4" cols="50" id="cm" name="comment"></textarea>
+        <input type="submit" id="submit" value="send">
+        <input type="submit" onclick="window.location='{% url 'usercomment:handy' %}; return false;" formmethod="GET" value="Cancel">
+
+    </form>
+{% endblock %}
+
+{% include 'home/footer.html' %}
+
+
+

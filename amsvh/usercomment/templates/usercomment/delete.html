@@ -1,0 +1,15 @@
+{% include 'home/base.html' %}
+{% include 'home/navbar.html' %}
+{% include 'home/auths.html' %}
+
+{% block content %}
+<h1>Delete Picture</h1>
+
+<p>Are you sure you want to delete the picture: {{ picture }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+</form>
+{% endblock %}
+{% include 'home/footer.html' %}

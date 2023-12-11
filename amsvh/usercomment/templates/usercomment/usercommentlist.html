@@ -1,0 +1,44 @@
+{% include 'home/base.html' %}
+{% include 'home/navbar.html' %}
+{% include 'home/auths.html' %}
+
+{% block content %}
+    <div id="" style="overflow-y:scroll; display:flex;
+flex-direction:column-reverse; height:400px; background-color:#d5d8e0">
+        <ul style="padding-top:40px">
+            {% for comment in usercomment_list %}
+                    <div>
+                        <p style="padding-top:10px; display:inline;">{{ forloop.counter }} . {{ comment.first_name }} {{ comment.last_name }}:    "{{ comment.comment }}"
+                            {% if user.id == comment.username_id %}
+                        <form  style="display:inline-block; max-height:0px"  method="">
+                            {% csrf_token %}
+                            <input type="hidden" id="id" name="id" value={{ comment.id }}><br><br>
+                            <input type="submit" formaction="{% url 'usercomment:usercommentdelete' comment.id %}" formmethod="POST" value="Delete">
+                            <input type="submit" formaction="{% url 'usercomment:usercommentdetail' comment.id %}" formmethod="GET" value="Update">
+                        </form>
+                        {% endif %}
+                        </p>
+                    </div>
+            {% endfor %}
+
+        </ul>
+    </div>
+    <br><br>
+
+    <form action="" method="">
+        {% csrf_token %}
+        <lable for="fn">First name:</lable>
+        <input type="text" id="fn" name="first_name" value="{{ user.first_name }}" readonly ><br><br>
+        <lable for="ln">Last name:</lable>
+        <input type="text" id="ln" name="last_name" value="{{ user.last_name }}" readonly ><br><br>
+        <input type="hidden" id="username_id" name="username_id" value="{{ user.id }}" readonly ><br><br>
+        <lable for="cm">Comment:</lable><br>
+        <textarea rows="4" cols="50" id="cm" name="comment"></textarea>
+        <input type="submit" value="send" formaction="{% url 'usercomment:usercommentcreate' %}" formmethod="POST">
+        <input type="submit" onclick="window.location='{% url 'usercomment:handy' %}; return false;" formmethod="GET" value="Cancel">
+
+    </form>
+{% endblock %}
+
+{% include 'home/footer.html' %}
+

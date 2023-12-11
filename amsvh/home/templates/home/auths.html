@@ -1,0 +1,14 @@
+{% block auths %}
+
+<div style="margin:20 20 20 20">
+  {% if user.is_authenticated %}
+  <p>
+Hi {{ user.get_full_name }}! <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+  </p>
+
+  {% else %}
+  <p>You can <a href="{% url 'login' %}?next={{ request.path }}">Login</a> if you like.</p>
+</div>
+{% endif %}
+
+{% endblock %}

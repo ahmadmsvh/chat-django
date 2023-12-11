@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  web-service-app: 
+    build:
+      context: amsvh
+    ports:
+      - '8000:8000'
+    volumes:
+      - type: bind
+        source: ./amsvh
+        target: /amsvh
+volumes:
+  web-service-vol:

@@ -1,0 +1,31 @@
+{% include 'home/base.html' %}
+{% include 'home/navbar.html' %}
+{% include 'home/auths.html' %}
+
+{% block content %}
+    <h2 style="padding-top:40px">
+        <h4>First name: </h4> <h3>{{ usercomment.first_name }}</h3>
+        <h4>Last name: </h4> <h3>{{ usercomment.last_name }}</h3>
+        <h4>Comment: </h4> <h3>{{ usercomment.comment }}</h3>
+        <h6>comment ID:</h6> {{ usercomment.id }}
+    </h2>
+
+    <form action="" method="">
+        {% csrf_token %}
+        <lable for="fn">First name:</lable>
+        <input type="text" id="fn" name="first_name" value={{ usercomment.first_name }}><br><br>
+        <lable for="ln">Last name:</lable>
+        <input type="text" id="ln" name="last_name" value={{ usercomment.last_name }}><br><br>
+        <lable for="cm">Comment:</lable><br>
+        <textarea rows="4" cols="50" id="cm" name="comment" >{{ usercomment.comment }}</textarea>
+        <input type="hidden" id="id" name="id" value={{ usercomment.id }}>
+        <input type="submit" formaction="{% url 'usercomment:usercommentupdate' %}" formmethod="POST" value="Update">
+        <input type="submit" formaction="{% url 'usercomment:usercommentdelete' user.id %}" formmethod="POST" value="Delete">
+        <input type="submit" formaction="{% url 'usercomment:usercommentlist' %}" formmethod="GET" value="Cancel">
+    </form>
+
+
+{% endblock %}
+
+{% include 'home/footer.html' %}
+
